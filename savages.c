@@ -91,7 +91,7 @@ void *eat (void *id) {
         eat_meals--;
 
         // Avisa que ele está comendo
-        printf ("Savage: %i is eating\n", savage_id);
+        printf ("Savage [%d]:  is eating\n", savage_id);
         fflush(stdout);
 
         // Tempo que ele demora pra comer
@@ -99,7 +99,7 @@ void *eat (void *id) {
         sleep(1);
 
         // Avisa que acabou de comer e o quanto ainda falta
-        printf ("Savage [%i]: is DONE eating, need %d more\n", savage_id, eat_meals);
+        printf ("Savage [%d]: is DONE eating, need %d more\n", savage_id, eat_meals);
         fflush(stdout);
     }
     // Avisa que acabou de comer de vez
@@ -113,6 +113,7 @@ int main(int argc, char *argv[]) {
         num_savages: Quantidade de selvagens na mesa
         num_meals: Quantas refeições cada selvagem vai fazer
         num_cook: Quantas refeições um selvagem cozinha quando acaba a comida
+        <opcional>cook_speed: Quantas refeições o cozinheiro prepara por vez
     */
     if(argc < 4)
     {
@@ -123,14 +124,18 @@ int main(int argc, char *argv[]) {
     char **p_end = NULL;
     // Quantidade de comida inicial no pote
     servings = strtol(argv[3], p_end, 10);
-    if(argc > 4)
-    {
-        cook_speed = strtol(argv[4], p_end, 10);
-        printf("The cook will cook %d per time\n", cook_speed);
-    }
     // Pega o primeiro argumento com o número de selvagens
     num_savages = strtol(argv[1], p_end, 10);
 
+    printf("There are %d savages\n", num_savages);
+    printf("That need to eat %d meals\n",(int)strtol(argv[2], p_end, 10));
+    printf("The pot have %d initial meals\n", servings);
+    if(argc > 4)
+    {
+        cook_speed = strtol(argv[4], p_end, 10);
+        printf("The cook will cook %d meal per time\n", cook_speed);
+    }
+    sleep(5);
     // Index usado para a criação de selvagens tanto quem cozinha quanto quem come
     int i;
 
